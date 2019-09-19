@@ -1,26 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
+import Header from './components/Header';
+import Search from './components/Search';
+import Card from './components/Card';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const testData = [
+];
+
+class App extends React.Component {
+  state = {
+    profiles: testData
+  }
+  
+  addNewProfile = (profileData) => {
+    this.setState(prevState => ({
+      profiles: [...prevState.profiles, profileData]
+    })) 
+    // console.log()
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Header />
+        <Search onSubmit={this.addNewProfile} />
+
+        <div className='wcc-userList'>
+          {
+            this.state.profiles.map(profile => {
+              return (
+                <Card key={profile.name} {...profile} />
+              )
+            })
+          }
+        </div>
+      </div>
+    )
+  };
 }
 
 export default App;
